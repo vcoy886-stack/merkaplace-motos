@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOTO-PARLA Medellín - Repuestos</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,Arial}
+body{background:#0a192f;color:#fff;min-height:100vh}
+header{padding:16px;border-bottom:1px solid #1e3a5f;position:sticky;top:0;background:#0a192f;z-index:10}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:16px;max-width:1200px;margin:0 auto}
+.card{background:#112240;border:1px solid #1e3a5f;border-radius:16px;overflow:hidden}
+.card img{width:100%;height:160px;object-fit:cover}
+.btn{width:100%;margin-top:10px;padding:12px;background:#00a8ff;border:0;border-radius:10px;color:#fff;font-weight:800;cursor:pointer}
+.btn-wa{background:#25D366}
+.badge{display:inline-block;background:#00a8ff;color:#fff;font-size:10px;padding:4px 8px;border-radius:10px}
+.search{width:100%;padding:14px;border-radius:12px;border:1px solid #1e3a5f;background:#112240;color:#fff;margin-top:12px}
+.plan{border:1px solid #233554;border-radius:16px;padding:18px;background:#0a192f}
+.plan.pop{border:2px solid #00a8ff;transform:scale(1.02)}
+.plan.top{border:2px solid #facc15}
+</style>
+</head>
+<body>
+<header>
+<div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+<h1 style="font-size:22px;font-weight:900">🏍️ MOTO-PARLA <span style="color:#00a8ff;font-size:12px">MEDELLIN</span></h1>
+<div style="display:flex;gap:8px">
+<button onclick="document.getElementById('planes').scrollIntoView({behavior:'smooth'})" style="background:#facc15;color:#000;padding:8px 14px;border-radius:20px;font-weight:800;border:0;font-size:12px;cursor:pointer">Soy taller</button>
+<button onclick="window.open('https://wa.me/573148307855?text=Quiero pagar suscripcion','_blank')" style="background:#00ff88;color:#000;padding:8px 14px;border-radius:20px;font-weight:800;border:0;font-size:12px;cursor:pointer">💳 Wompi+Nequi</button>
+</div>
+</div>
+<div style="max-width:1200px;margin:0 auto"><input id="busq" placeholder="🔍 Busca NMAX, NS200, Kit Arrastre, La 33, Bayadera..." class="search" oninput="filtrar()"></div>
+</header>
+
+<div id="productos" class="grid"></div>
+
+<div id="carrito" style="display:none;position:fixed;bottom:16px;left:16px;right:16px;background:#112240;border:2px solid #00ff88;border-radius:16px;padding:14px;max-width:500px;margin:0 auto;z-index:20">
+<div style="display:flex;justify-content:space-between"><b id="cart-count">🛒 0 productos</b><b id="cart-total">$0</b></div>
+<button onclick="pedirTodo()" style="width:100%;margin-top:8px;padding:12px;background:#25D366;border:0;border-radius:10px;color:#fff;font-weight:900;cursor:pointer">Pedir TODO por WhatsApp al 314</button>
+</div>
+
+<section id="planes" style="margin:60px 16px 20px;background:#112240;border-radius:20px;padding:24px;border:1px solid #1e3a5f;max-width:1200px;margin-left:auto;margin-right:auto">
+<h2 style="text-align:center;font-size:24px;font-weight:900">¿Eres taller? Aparece aquí</h2>
+<p style="text-align:center;color:#8892b0;font-size:13px;margin:8px 0 20px">Paga y tu tienda aparece en MOTO-PARLA en 2 minutos</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+<div class="plan"><h3>PLAN BARRIO</h3><div style="font-size:28px;font-weight:900;color:#00a8ff">$50.000<span style="font-size:12px">/mes</span></div><ul style="font-size:13px;margin:12px 0;line-height:1.8"><li>Posición 11-30</li><li>3 productos</li><li>Barrio específico</li></ul><button onclick="window.open('https://wa.me/573148307855?text=Quiero PLAN BARRIO $50k','_blank')" class="btn" style="background:#233554">Elegir Barrio $50k →</button></div>
+<div class="plan pop"><div class="badge">MÁS POPULAR</div><h3>PLAN CIUDAD</h3><div style="font-size:28px;font-weight:900;color:#00a8ff">$99.000<span style="font-size:12px">/mes</span></div><ul style="font-size:13px;margin:12px 0;line-height:1.8"><li>Posición 1-10 ROTATIVO</li><li>10 productos</li><li>Toda Medellín</li><li>5.0 ⭐ prioridad</li></ul><button onclick="window.open('https://wa.me/573148307855?text=Quiero PLAN CIUDAD $99k','_blank')" class="btn">Elegir Ciudad $99k →</button></div>
+<div class="plan top"><div class="badge" style="background:#facc15;color:#000">SOLO 1 POR BARRIO</div><h3>PLAN TOP 1</h3><div style="font-size:28px;font-weight:900;color:#facc15">$199.000<span style="font-size:12px">/mes</span></div><ul style="font-size:13px;margin:12px 0;line-height:1.8"><li>SIEMPRE primero 🏆</li><li>20 productos</li><li>Exclusivo por barrio</li><li>Bloquea competencia</li></ul><button onclick="window.open('https://wa.me/573148307855?text=Quiero PLAN TOP1 $199k en mi barrio','_blank')" class="btn" style="background:#facc15;color:#000">Ser TOP 1 $199k →</button></div>
+</div>
+<div style="margin-top:20px;background:#0a192f;padding:14px;border-radius:12px;font-size:12px;color:#8892b0"><b>¿Cómo ordenamos? Si todos pagan $99k:</b><br>1. Cercanía: Si estás en La 33, primero los de La 33 (0.8km)<br>2. Rating: 5.0 ⭐ antes que 4.7 ⭐<br>3. Rotativo cada hora, justo para todos.</div>
+</section>
+
+<div style="text-align:center;margin:40px 0;color:#5a719a;font-size:11px">MOTO-PARLA • Merkaplace Motos Medellín • WhatsApp 3148307855 • VictorCoy.AI • $1.987.000 MRR meta (10x$50k + 10x$99k + 3x$199k)</div>
+
+<script>
+const WHATSAPP='573148307855';
+const productos=[
+{t:"MotoRacing La 33",b:"La 33 - Laureles",p:"Kit Arrastre NS200 Original",price:"$185.000",old:"$220.000",dist:"0.8km",r:"4.9",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300"},
+{t:"Repuestos El Paisa",b:"La Bayadera",p:"Pastas Freno NMAX DEL/TRAS",price:"$45.000",old:"$60.000",dist:"1.2km",r:"4.8",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=300"},
+{t:"Mundo Motos Prado",b:"Prado Centro",p:"Llanta 110/80-17 Michelin",price:"$210.000",old:"$250.000",dist:"0.5km",r:"5.0",img:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=300"},
+{t:"La 33 Racing",b:"La 33",p:"Aceite Motul 5100 15W50",price:"$38.000",old:"$45.000",dist:"0.9km",r:"4.7",img:"https://images.unsplash.com/photo-1603386329225-868f9b53a05f?w=300"},
+{t:"Bayadera Motos",b:"La Bayadera",p:"Filtro Aire NS200/Pulsar",price:"$25.000",old:"$32.000",dist:"1.1km",r:"4.9",img:"https://images.unsplash.com/photo-1580341289256-0d8c9d6aa9b6?w=300"},
+{t:"MotoRacing La 33",b:"La 33",p:"Guaya Clutch NS200",price:"$18.000",old:"$25.000",dist:"0.8km",r:"4.9",img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=300"},
+];
+let carrito=[];
+function render(lista){
+  const cont=document.getElementById('productos');
+  cont.innerHTML=lista.map(p=>`
+    <div class="card">
+      <img src="${p.img}">
+      <div style="padding:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#8892b0"><span>${p.t}</span><span>⭐${p.r} • ${p.dist}</span></div>
+        <div style="font-size:11px;color:#5ee3ff;margin:4px 0">${p.b}</div>
+        <div style="font-weight:800;margin:6px 0">${p.p}</div>
+        <div style="display:flex;gap:8px;align-items:center"><b style="color:#00ff88">${p.price}</b><small style="text-decoration:line-through;color:#8892b0">${p.old}</small></div>
+        <button class="btn" onclick='pedir(${JSON.stringify(p).replace(/'/g,"&#39;")})'>📱 Pedir por WhatsApp</button>
+      </div>
+    </div>
+  `).join('');
+}
+function pedir(p){
+  if(typeof p==='string') p=JSON.parse(p);
+  carrito.push(p);
+  actualizarCarrito();
+  const msg=`Hola! Vi en MOTO-PARLA: ${p.p} por ${p.price} en ${p.t} (${p.b}) - ${p.dist}. Me interesa!`;
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+function actualizarCarrito(){
+  const el=document.getElementById('carrito');
+  if(carrito.length===0){el.style.display='none';return}
+  el.style.display='block';
+  const total=carrito.reduce((s,x)=>s+parseInt(x.price.replace(/[^0-9]/g,'')),0);
+  document.getElementById('cart-count').innerText=`🛒 ${carrito.length} productos`;
+  document.getElementById('cart-total').innerText=`$${total.toLocaleString()}`;
+}
+function pedirTodo(){
+  const lista=carrito.map(c=>`${c.p} ${c.price}`).join('%0A');
+  const total=carrito.reduce((s,x)=>s+parseInt(x.price.replace(/[^0-9]/g,'')),0);
+  const msg=`Hola MOTO-PARLA! Quiero pedir:%0A${lista}%0ATotal: $${total.toLocaleString()}`;
+  window.open(`https://wa.me/${WHATSAPP}?text=${msg}`,'_blank');
+}
+function filtrar(){
+  const q=document.getElementById('busq').value.toLowerCase();
+  const f=productos.filter(p=> (p.p+p.t+p.b).toLowerCase().includes(q));
+  render(f);
+}
+render(productos);
+</script>
+</body>
+</html>
